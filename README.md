@@ -1,6 +1,6 @@
 # meal_rec_app
 
-A new Flutter project.
+A Meal lister application. 
 
 ## Getting Started
 
