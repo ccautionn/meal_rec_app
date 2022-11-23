@@ -3,7 +3,10 @@ import '../dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
-  const MealDetailScreen({super.key});
+  final Function toggleFavorite;
+  final Function isFavorite;
+  const MealDetailScreen(
+      {super.key, required this.toggleFavorite, required this.isFavorite});
 
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
@@ -21,8 +24,8 @@ class MealDetailScreen extends StatelessWidget {
           color: Colors.white,
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(10)),
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       height: 150,
       width: 300,
       child: child,
@@ -34,7 +37,7 @@ class MealDetailScreen extends StatelessWidget {
     final mealId = ModalRoute.of(context)?.settings.arguments;
     final selectedMeal = DUMMY_MEALS.firstWhere((meal) => meal.id == mealId);
     return Scaffold(
-      appBar: AppBar(title: Text('${selectedMeal.title}')),
+      appBar: AppBar(title: Text(selectedMeal.title)),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -71,6 +74,11 @@ class MealDetailScreen extends StatelessWidget {
             ))
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => toggleFavorite(mealId),
+        child:
+            Icon(isFavorite(mealId) ? Icons.star : Icons.star_border_rounded),
       ),
     );
   }
